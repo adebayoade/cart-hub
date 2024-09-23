@@ -1,38 +1,52 @@
 import { Product } from '@/types';
 import { Button } from './button';
-import { ShoppingBagIcon } from 'lucide-react';
 import { Icon } from '../icons';
+import { useCart } from '@/store/cart';
 
-export default function ProductCard({ product }: { product: Product }) {
+type ProductCardProps = {
+  product: Product;
+};
+
+export default function ProductCard({ product }: ProductCardProps) {
+  const { addToCart, findItem } = useCart();
+
   return (
     <div className="flex flex-col gap-5">
       <div className="rounded-2xl">
         <img
-          className="rounded-2xl overflow-hidden h-full w-full"
+          className={`${
+            findItem(product.name) === true ? 'border-2 border-primary' : ''
+          } rounded-2xl overflow-hidden h-full w-full`}
           alt={product.name}
           src={product.image?.desktop}
         />
       </div>
-      {/* Add to cart button */}
-      <Button variant={'outline'} className="w-[150px] mx-auto -mt-10" size={'lg'}>
-        <div className='mr-2'>
-          <Icon.Cart />
+
+      {findItem(product.name) === false ? (
+        <Button
+          onClick={() => addToCart(product.name, 1, product.price)}
+          variant={'outline'}
+          className="w-[150px] mx-auto -mt-10"
+          size={'lg'}
+        >
+          <div className="mr-2">
+            <Icon.Cart />
+          </div>
+          Add To Cart
+        </Button>
+      ) : (
+        <div className="text-white w-[150px] h-10 flex justify-between bg-primary mx-auto rounded-full items-center -mt-10">
+          <Button className="text-white" variant={'link'} size={'icon'}>
+            <Icon.Decrease />
+          </Button>
+
+          <span>1</span>
+
+          <Button className="text-white" variant={'link'} size={'icon'}>
+            <Icon.Increase />
+          </Button>
         </div>
-        Add To Cart
-      </Button>
-
-      {/* Change quantity button */}
-      <div className="text-white w-[150px] h-10 flex justify-between bg-primary mx-auto rounded-full items-center">
-        <Button className="text-white" variant={'link'} size={'icon'}>
-          <Icon.Decrease />
-        </Button>
-
-        <span>1</span>
-
-        <Button className="text-white" variant={'link'} size={'icon'}>
-          <Icon.Increase />
-        </Button>
-      </div>
+      )}
 
       <div className="flex flex-col">
         <span className="text-primary/60 text-sm">{product.category}</span>

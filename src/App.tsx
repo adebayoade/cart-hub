@@ -1,10 +1,15 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './routes';
+import { CartProvider } from './store/cart';
 
 const router = createBrowserRouter(routes);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
+  );
 }
 
 export default App;
