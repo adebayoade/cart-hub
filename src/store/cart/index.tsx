@@ -56,16 +56,28 @@ export function CartProvider({ children }: CartProviderProps) {
   };
 
   const increaseQty = (name: string) => {
-    const index = cartItems.findIndex(element => element.name === name);
-
-    if (index !== -1) {
-      const newCartItems = cartItems.map(item => {
-        item.qty += 1;
-      });
-    }
+    setCartItems(
+      cartItems.map(item => {
+        if (item.name === name && item.qty !== 0) {
+          return { ...item, qty: item.qty + 1 };
+        } else {
+          return item;
+        }
+      })
+    );
   };
 
-  const decreaseQty = (name: string) => {};
+  const decreaseQty = (name: string) => {
+    setCartItems(
+      cartItems.map(item => {
+        if (item.name === name && item.qty > 1) {
+          return { ...item, qty: item.qty - 1 };
+        } else {
+          return item;
+        }
+      })
+    );
+  };
 
   const calcTotal = () => {
     return cartItems.reduce((accumulator, item) => {

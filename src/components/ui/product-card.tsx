@@ -8,7 +8,15 @@ type ProductCardProps = {
 };
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { addToCart, findItem } = useCart();
+  const { addToCart, cartItems, findItem, increaseQty, decreaseQty } = useCart();
+
+  const getQtyFromCart = (name: string) => {
+    const index = cartItems.findIndex(element => element.name === name);
+
+    if (index === -1) return null;
+
+    return cartItems[index].qty;
+  };
 
   return (
     <div className="flex flex-col gap-5">
@@ -36,13 +44,23 @@ export default function ProductCard({ product }: ProductCardProps) {
         </Button>
       ) : (
         <div className="text-white w-[150px] h-10 flex justify-between bg-primary mx-auto rounded-full items-center -mt-10">
-          <Button className="text-white" variant={'link'} size={'icon'}>
+          <Button
+            onClick={() => decreaseQty(product.name)}
+            className="text-white"
+            variant={'link'}
+            size={'icon'}
+          >
             <Icon.Decrease />
           </Button>
 
-          <span>1</span>
+          <span>{getQtyFromCart(product.name)}</span>
 
-          <Button className="text-white" variant={'link'} size={'icon'}>
+          <Button
+            onClick={() => increaseQty(product.name)}
+            className="text-white"
+            variant={'link'}
+            size={'icon'}
+          >
             <Icon.Increase />
           </Button>
         </div>

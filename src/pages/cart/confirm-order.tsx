@@ -18,8 +18,7 @@ export default function ConfirmOrder() {
 
     if (index === -1) return null;
 
-    const imagePath = products[index].image.thumbnail;
-    return imagePath;
+    return products[index].image.thumbnail;
   };
 
   return (
@@ -32,8 +31,8 @@ export default function ConfirmOrder() {
       <DialogContent>
         <DialogHeader className="gap-2">
           <CheckCircle2 className="text-green-500" />
-          <DialogTitle>Order Confirmed</DialogTitle>
-          <span>We hope you enjoy your food!</span>
+          <DialogTitle className="text-2xl font-semibold">Order Confirmed</DialogTitle>
+          <span className="text-sm text-gray-400">We hope you enjoy your food!</span>
         </DialogHeader>
 
         <div className="flex flex-col gap-5 bg-cream p-5 rounded-lg">
@@ -41,13 +40,17 @@ export default function ConfirmOrder() {
             {cartItems.map(item => (
               <div className="flex gap-5 justify-between items-center">
                 <div className="flex gap-5">
-                  <img className="w-10" alt="image" src={getImagePath(item?.name) || null} />
+                  <img
+                    className="w-10"
+                    alt="image"
+                    src={getImagePath(item?.name) || 'https://placehold.co/50x50.png'}
+                  />
                   <div className="text-sm">
                     <span className="font-semibold">{item.name}</span>
                     <div className="font-medium flex gap-5 items-center justify-between">
                       <span className="flex gap-5">
-                        <span className="text-primary">1x</span>
-                        <span className="text-gray-400">@ ${item.qty}</span>
+                        <span className="text-primary">{item.qty}x</span>
+                        <span className="text-gray-400">@ ${item.price}</span>
                       </span>
                     </div>
                   </div>
