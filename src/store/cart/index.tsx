@@ -1,7 +1,8 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 type CartProviderProps = {
   children: React.ReactNode;
+  storageKey?: string;
 };
 
 type Item = {
@@ -34,8 +35,17 @@ const initialState: CartProviderState = {
 
 export const CartProviderContext = createContext<CartProviderState>(initialState);
 
-export function CartProvider({ children }: CartProviderProps) {
-  const [cartItems, setCartItems] = useState<Item[]>([]);
+export function CartProvider({ children, storageKey = 'cartItems' }: CartProviderProps) {
+  const [cartItems, setCartItems] = useState<Item[]>(
+    // () => (localStorage.getItem(storageKey)) || []
+    []
+  );
+
+  useEffect(() => {}, []);
+
+  const updateStorage = () => {
+    localStorage.setItem(storageKey, cartItems);
+  };
 
   const addToCart = (name: string, qty: number, price: number) => {
     setCartItems(prev => [...prev, { name, qty, price }]);

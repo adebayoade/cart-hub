@@ -14,8 +14,8 @@ export default function CartItems() {
           <span className="font-semibold">{item.name}</span>
           <div className="font-medium flex gap-5 items-center justify-between">
             <span className="text-sm flex gap-5">
-              <span className="text-primary">1x</span>
-              <span className="text-gray-400">@ ${item.qty}</span>
+              <span className="text-primary">{item.qty}x</span>
+              <span className="text-gray-400">@ ${item.price}</span>
               <span className="text-gray-400 font-semibold">${item.price * item.qty}</span>
             </span>
 

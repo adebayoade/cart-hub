@@ -73,4 +73,22 @@
   .title {
     @apply text-3xl font-bold;
   }
+  .has-line-after {
+    position: relative;
+    width: max-content;
+  }
+  .has-line-after:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 1px;
+    transition: all 0.3s ease;
+    @apply bg-primary;
+  }
+  .has-line-after.active:after,
+  .has-line-after:hover:after {
+    width: 100%;
+  }
 }
