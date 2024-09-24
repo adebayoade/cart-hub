@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+const key = 'cartItems';
+
 type CartProviderProps = {
   children: React.ReactNode;
   storageKey?: string;
@@ -35,17 +37,17 @@ const initialState: CartProviderState = {
 
 export const CartProviderContext = createContext<CartProviderState>(initialState);
 
-export function CartProvider({ children, storageKey = 'cartItems' }: CartProviderProps) {
-  const [cartItems, setCartItems] = useState<Item[]>(
-    // () => (localStorage.getItem(storageKey)) || []
-    []
+export function CartProvider({ children, storageKey = key }: CartProviderProps) {
+  const [cartItems, setCartItems] = useState<Item[]>(() =>
+    JSON.parse(localStorage.getItem(storageKey)!)
+      ? JSON.parse(localStorage.getItem(storageKey)!)
+      : []
   );
 
-  useEffect(() => {}, []);
-
-  const updateStorage = () => {
-    localStorage.setItem(storageKey, cartItems);
-  };
+  useEffect(() => {
+    //Update the local storage after detected change
+    localStorage.setItem(storageKey, JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (name: string, qty: number, price: number) => {
     setCartItems(prev => [...prev, { name, qty, price }]);
@@ -118,7 +120,7 @@ export function CartProvider({ children, storageKey = 'cartItems' }: CartProvide
 export const useCart = () => {
   const context = useContext(CartProviderContext);
 
-  if (context === undefined) throw new Error('useTheme must be used within a ThemeProvider');
+  if (context === undefined) throw new Error('useCart must be used within a CartProvider');
 
   return context;
 };
