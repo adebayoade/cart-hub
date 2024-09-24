@@ -31,14 +31,14 @@ export default function ConfirmOrder() {
       <DialogContent>
         <DialogHeader className="gap-2">
           <CheckCircle2 className="text-green-500" />
-          <DialogTitle className="text-2xl font-semibold">Order Confirmed</DialogTitle>
+          <DialogTitle className="text-3xl font-bold">Order Confirmed</DialogTitle>
           <span className="text-sm text-gray-400">We hope you enjoy your food!</span>
         </DialogHeader>
 
         <div className="flex flex-col gap-5 bg-cream p-5 rounded-lg">
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col">
             {cartItems.map(item => (
-              <div className="flex gap-5 justify-between items-center">
+              <div className="flex gap-5 justify-between items-center border-b py-4">
                 <div className="flex gap-5">
                   <img
                     className="w-10"

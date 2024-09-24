@@ -23,7 +23,7 @@ export default function Cart() {
           </div>
         </div>
 
-        <div className="bg-white flex flex-col gap-5 h-max rounded-2xl py-7 px-5">
+        <div className="bg-white flex flex-col gap-2 h-max rounded-2xl py-7 px-5">
           <h2 className="text-xl text-primary font-bold">
             Your Cart <span>({cartItems.length})</span>
           </h2>

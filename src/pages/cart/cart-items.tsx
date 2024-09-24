@@ -9,15 +9,17 @@ export default function CartItems() {
 
   return (
     <div className="flex flex-col gap-5">
-      {cartItems?.map(item => (
-        <div>
-          <span className="font-semibold">{item.name}</span>
-          <div className="font-medium flex gap-5 items-center justify-between">
-            <span className="text-sm flex gap-5">
-              <span className="text-primary">{item.qty}x</span>
-              <span className="text-gray-400">@ ${item.price}</span>
-              <span className="text-gray-400 font-semibold">${item.price * item.qty}</span>
-            </span>
+      <div>
+        {cartItems?.map(item => (
+          <div className="border-b py-5 flex justify-between items-center">
+            <div className="flex flex-col gap-2">
+              <span className="font-semibold">{item.name}</span>
+              <span className="text-sm flex gap-5">
+                <span className="text-primary">{item.qty}x</span>
+                <span className="text-gray-400">@ ${item.price}</span>
+                <span className="text-gray-400 font-semibold">${item.price * item.qty}</span>
+              </span>
+            </div>
 
             <Button
               onClick={() => removeItem(item.name)}
@@ -28,8 +30,8 @@ export default function CartItems() {
               <X size={15} />
             </Button>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       <div className="justify-between flex gap-5 rounded-lg">
         <span className="text-sm text-gray-500 font-medium">Order Total</span>
