@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function NotFound() {
   return (
-    <div className="py-32 container h-full">
+    <main className="py-32 container h-full">
       <div className="flex items-center flex-col gap-5">
         <TriangleAlertIcon size={30} className="text-yellow-500 text-6xl" />
         <h1 className="title text-center">The requested page can not be found!</h1>
@@ -15,6 +15,6 @@ export default function NotFound() {
           to go back to the home page
         </span>
       </div>
-    </div>
+    </main>
   );
 }

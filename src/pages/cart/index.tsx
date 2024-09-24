@@ -11,7 +11,7 @@ export default function Cart() {
   const { cartItems } = useCart();
 
   return (
-    <div className="container mt-12">
+    <main className="container mt-12">
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-10">
         <div className="flex flex-col gap-5">
           <h1 className="title">Desserts</h1>
@@ -31,6 +31,6 @@ export default function Cart() {
           {cartItems.length > 0 ? <CartItems /> : <CartEmpty />}
         </div>
       </div>
-    </div>
+    </main>
   );
 }
